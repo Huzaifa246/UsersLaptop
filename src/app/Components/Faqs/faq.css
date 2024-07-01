@@ -1,0 +1,17 @@
+.faq-que {
+  background-color: var(--white-color) !important;
+}
+.faq-que:hover {
+  text-decoration: underline;
+  background-color: #f0eded !important;
+}
+.acc-main-style {
+  margin: 0 auto;
+  width: 60%;
+}
+
+@media (max-width: 768px) {
+  .acc-main-style {
+    width: 100%;
+  }
+}

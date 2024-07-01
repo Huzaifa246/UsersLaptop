@@ -1,0 +1,33 @@
+.logout {
+  color: white;
+}
+.logout:hover {
+  color: red !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: red !important;
+  font-weight: bold;
+}
+
+.dd-style {
+  background-color: transparent !important;
+  border: none !important;
+}
+.cart-icon{
+  height: 1.6rem;
+  width: 1.6rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Transition effect on hover */
+.cart-icon:hover {
+  transform: scale(1.2);
+  color: #f00;
+}
+@media screen and (min-width: 768px) {
+  .web-header {
+   padding: 20px 0 !important;
+  }
+}
