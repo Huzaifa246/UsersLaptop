@@ -7,7 +7,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
 import Link from 'next/link';
 import './header.css';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 function HeaderComponent() {
     const router = useRouter();
@@ -43,15 +43,7 @@ function HeaderComponent() {
 
     const handleSearch = () => {
         if (searchQuery.trim()) {
-            const filteredLaptop = laptops.filter(laptop =>
-                laptop?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                laptop?.brand?.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-            console.log(filteredLaptop);
-            router.push({
-                pathname: '/search',
-                query: { results: JSON.stringify(filteredLaptop) }
-            });
+            router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
         }
     };
 
@@ -60,10 +52,6 @@ function HeaderComponent() {
             handleSearch();
         }
     };
-
-    if (!router) {
-        return null; // or a loading spinner
-    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark web-header">
@@ -95,10 +83,10 @@ function HeaderComponent() {
                             </Dropdown>
                         </li>
                         <li className="nav-item">
-                            <Link href="/" className={`nav-link txt-white pd-5 ${router.pathname === '/gaming-laptops' ? 'active' : ''}`} aria-current="page">Gaming Laptops</Link>
+                            <Link href="/gaming-laptops" className={`nav-link txt-white pd-5 ${router.pathname === '/gaming-laptops' ? 'active' : ''}`} aria-current="page">Gaming Laptops</Link>
                         </li>
                         <li className="nav-item">
-                            <Link href="/" className={`nav-link txt-white pd-5 ${router.pathname === '/about-us' ? 'active' : ''}`} aria-current="page">About Us</Link>
+                            <Link href="/about-us" className={`nav-link txt-white pd-5 ${router.pathname === '/about-us' ? 'active' : ''}`} aria-current="page">About Us</Link>
                         </li>
                     </ul>
                     <div className="ml-auto d-flex align-items-center justify-content-center">

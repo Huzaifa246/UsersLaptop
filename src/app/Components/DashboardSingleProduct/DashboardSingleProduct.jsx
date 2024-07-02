@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
@@ -28,7 +30,7 @@ const DashboardSingleProduct = () => {
         </div>;
     }
 
-    if (products.length === 0) {
+    if (products?.length === 0) {
         return <div>No products found</div>;
     }
 

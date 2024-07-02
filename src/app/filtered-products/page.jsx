@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Container, Row, Col, Dropdown, Form, Button, Badge, Pagination } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
@@ -193,7 +195,7 @@ const FilterProducts = () => {
                     <Row className='d-flex flex-wrap mob-wrap mt-5'>
                         {/* {filteredAndSortedProducts.map((product) => ( */}
                         {currentItems.map((product) => (
-                            <Col key={product._id} xs={12} sm={6} md={4} lg={4} className="mb-4">
+                            <Col key={product._id} xs={12} sm={6} md={4} lg={4} className="mb-4 cursor-pointer">
                                 <div className="card h-100 shadow-sm" onClick={() => handleProductClick(product)}>
                                     <Badge
                                         bg="danger"
@@ -228,7 +230,6 @@ const FilterProducts = () => {
                     </Row>
                 )}
             </Container>
-            <Footer />
         </>
     );
 };
