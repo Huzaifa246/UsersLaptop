@@ -8,6 +8,7 @@ import fetchAllLaptops from '@/app/services/getAllLaptops';
 import Link from 'next/link';
 import './header.css';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 function HeaderComponent() {
     const router = useRouter();
@@ -57,7 +58,7 @@ function HeaderComponent() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark web-header">
             <div className="container-fluid">
                 <Link href="/" className="navbar-brand txt-white">
-                    <img src="/logo.jpg" alt="Logo" style={{ height: "50px" }} />
+                    <Image src="/logo.jpg" alt="Logo" style={{ height: "50px" }} />
                 </Link>
                 <button className="navbar-toggler" type="button" onClick={toggleNavbar}>
                     <span className="navbar-toggler-icon"></span>

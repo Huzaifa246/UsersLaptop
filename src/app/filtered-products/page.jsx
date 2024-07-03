@@ -6,6 +6,7 @@ import { Container, Row, Col, Dropdown, Form, Button, Badge, Pagination } from '
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
 import Loader from '@/app/Components/Reuseable/Loader';
+import Image from 'next/image';
 
 const FilterProducts = () => {
     const router = useRouter();
@@ -204,7 +205,7 @@ const FilterProducts = () => {
                                     >
                                         10% OFF
                                     </Badge>
-                                    <img src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" />
+                                    <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" />
                                     <div className="card-body">
                                         <h5 className="card-title gradient-text">{product.name}</h5>
                                         <p className="card-text">{product.ram} RAM</p>

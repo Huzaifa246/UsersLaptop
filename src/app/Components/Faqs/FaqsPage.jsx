@@ -1,6 +1,7 @@
 "use client"; 
 import React, { useState } from 'react'
 import "./faq.css";
+import Image from 'next/image';
 const FaqsPage = () => {
     const [activeAccordion, setActiveAccordion] = useState(null);
 
@@ -38,7 +39,7 @@ const FaqsPage = () => {
                     From sleek and lightweight models to powerful gaming laptops, we have it all.
                 </p>
             </div>
-            <img src="/images/faqImg.png" alt="" className='w-100' />
+            <Image src="/images/faqImg.png" alt="" className='w-100' />
 
             <div className='my-2'>
                 <h1 className='text-center'>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
 import Loader from '../Reuseable/Loader';
+import Image from 'next/image';
 
 const DashboardSingleProduct = () => {
     const [products, setProducts] = useState([]);
@@ -50,7 +51,7 @@ const DashboardSingleProduct = () => {
                     </section>
                 </main>
                 <Col xs={12} md={8} className="text-center">
-                    <img
+                    <Image
                         src={product.imageUrls[0]}
                         alt={product.name}
                         className="img-fluid h-500 mob-h-100"

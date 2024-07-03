@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Badge } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Loader from '@/app/Components/Reuseable/Loader';
+import Image from 'next/image';
 
 const SingleProduct = ({ productData }) => {
     const [selectedVariants, setSelectedVariants] = useState([]);
@@ -60,7 +61,7 @@ const SingleProduct = ({ productData }) => {
         <Container>
             <Row className="my-4">
                 <Col xs={12} md={8} className="text-center">
-                    <img
+                    <Image
                         src={imageUrls[0] || "/images/card3.jpg"}
                         alt={productData.name}
                         className="img-fluid"

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Card, Badge } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const FeaturedCards = ({ imageUrl1, imageUrl2, productName, productLink, price, ram, processor, year, brand }) => {
     const [hovered, setHovered] = useState(false);
@@ -21,7 +22,7 @@ const FeaturedCards = ({ imageUrl1, imageUrl2, productName, productLink, price, 
             <Link href={productLink} className="text-decoration-none text-dark">
                 <Card className="h-100 shadow-sm border-0">
                     <div className="position-relative">
-                        <img
+                        <Image
                             src={hovered ? imageUrl2 : imageUrl1}
                             alt={productName}
                             className="card-img-top"
