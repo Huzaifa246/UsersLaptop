@@ -39,7 +39,7 @@ const FaqsPage = () => {
                     From sleek and lightweight models to powerful gaming laptops, we have it all.
                 </p>
             </div>
-            <Image src="/images/faqImg.png" alt="" className='w-100' />
+            <Image src="/images/faqImg.png" width={100} height={400} alt="" className='w-100 h-100' />
 
             <div className='my-2'>
                 <h1 className='text-center'>

@@ -205,7 +205,7 @@ const FilterProducts = () => {
                                     >
                                         10% OFF
                                     </Badge>
-                                    <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" />
+                                    <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" width={100} height={500}/>
                                     <div className="card-body">
                                         <h5 className="card-title gradient-text">{product.name}</h5>
                                         <p className="card-text">{product.ram} RAM</p>

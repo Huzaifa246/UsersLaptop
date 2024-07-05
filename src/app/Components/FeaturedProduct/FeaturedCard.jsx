@@ -28,6 +28,7 @@ const FeaturedCards = ({ imageUrl1, imageUrl2, productName, productLink, price, 
                             className="card-img-top"
                             onMouseEnter={handleHover}
                             onMouseLeave={handleMouseLeave}
+                            width={100} height={100}
                         />
                         <Badge
                             bg="danger"

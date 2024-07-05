@@ -51,8 +51,8 @@ const DashboardSingleProduct = () => {
                     </section>
                 </main>
                 <Col xs={12} md={8} className="text-center">
-                    <Image
-                        src={product.imageUrls[0]}
+                    <img
+                        src={product.imageUrls[0] || "/images/card3.jpg"}
                         alt={product.name}
                         className="img-fluid h-500 mob-h-100"
                     />

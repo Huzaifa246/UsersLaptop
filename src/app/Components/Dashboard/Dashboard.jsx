@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Banner from '../Reuseable/Banner';
 import DashboardSingleProduct from '../DashboardSingleProduct/DashboardSingleProduct';
 import FaqsPage from '../Faqs/FaqsPage';
-import Footer from '../Footer/footer';
 import FeaturedProducts from '../FeaturedProduct/FeaturedProducts';
 
 const Dashboard = () => {
@@ -22,8 +21,6 @@ const Dashboard = () => {
       </div>
       <Banner imageUrl="/images/Banner7.jpg" buttonText={false} />
       <FaqsPage />
-
-      <Footer />
     </>
   );
 };

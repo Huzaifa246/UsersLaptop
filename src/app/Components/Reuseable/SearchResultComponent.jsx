@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPage from './ErrorPage';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
-import Image from 'next/image';
 
 function SearchResultsComponent() {
     const searchParams = useSearchParams();
@@ -49,7 +48,7 @@ function SearchResultsComponent() {
                 <Container key={productData.id}>
                     <Row className="my-4">
                         <Col xs={12} md={8} className="text-center">
-                            <Image
+                            <img
                                 src={productData.imageUrls[0] || "/images/card3.jpg"}
                                 alt={productData.name}
                                 className="img-fluid"

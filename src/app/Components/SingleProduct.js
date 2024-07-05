@@ -65,6 +65,7 @@ const SingleProduct = ({ productData }) => {
                         src={imageUrls[0] || "/images/card3.jpg"}
                         alt={productData.name}
                         className="img-fluid"
+                        width={500} height={500}
                     />
                 </Col>
 
