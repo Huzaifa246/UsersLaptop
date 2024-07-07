@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Badge } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Loader from '@/app/Components/Reuseable/Loader';
 import Image from 'next/image';
+import Skeleton from './Reuseable/Skeleton';
 
 const SingleProduct = ({ productData }) => {
     const [selectedVariants, setSelectedVariants] = useState([]);
@@ -29,7 +29,7 @@ const SingleProduct = ({ productData }) => {
     };
 
     if (isLoading) {
-        return <Loader />;
+        return <Skeleton />;
     }
 
     if (!productData) {
@@ -51,7 +51,9 @@ const SingleProduct = ({ productData }) => {
         camera,
         gps,
         batteryCapacity,
-        variants
+        variants,
+        noOfPieces,
+        sold
     } = productData;
 
     const whatsappNumber = "+923000419226";
@@ -74,7 +76,7 @@ const SingleProduct = ({ productData }) => {
                     <h1 className='h1-product-style gradient-text'>{name}</h1>
                     <h4>Rs. {updatedPrice}</h4>
                     <div className="my-3">
-                        <b>Add Ons:</b>
+                        {variants?.length > 0 ? <b>Add Ons:</b> : null}
                         {variants?.map((variant, index) => (
                             <Badge
                                 key={index}
@@ -112,6 +114,8 @@ const SingleProduct = ({ productData }) => {
                             <li>Battery Capacity: {batteryCapacity}</li>
                             <li>Camera: {camera}</li>
                             <li>GPS: {gps}</li>
+                            <li>Products Available: {noOfPieces}</li>
+                            <li>Sold Products: {sold}</li>
                         </ul>
                     </div>
                 </Col>

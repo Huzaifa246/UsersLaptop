@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
-import Loader from '../Reuseable/Loader';
 import Image from 'next/image';
+import LinesSkeleton from './../Reuseable/LinesSkeleton';
 
 const DashboardSingleProduct = () => {
     const [products, setProducts] = useState([]);
@@ -27,7 +27,7 @@ const DashboardSingleProduct = () => {
 
     if (isLoading) {
         return <div>
-            <Loader />
+            <LinesSkeleton />
         </div>;
     }
 

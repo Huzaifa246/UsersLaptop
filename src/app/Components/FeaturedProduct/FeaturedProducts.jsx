@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
-import Loader from '../Reuseable/Loader';
 import FeaturedCards from './FeaturedCard';
+import Skeleton from '../Reuseable/Skeleton';
 
 const FeaturedProducts = () => {
     const [products, setProducts] = useState([]);
@@ -28,8 +28,14 @@ const FeaturedProducts = () => {
     return (
         <Container>
             <h2 className="mt-4 gradient-text">Featured Products</h2>
-            {isLoading ? (
-                <Loader />
+             {isLoading ? (
+                <Row>
+                    {[...Array(4)].map((_, idx) => (
+                        <div className="col-md-3" key={idx}>
+                            <Skeleton />
+                        </div>
+                    ))}
+                </Row>
             ) : (
                 <Row>
                     {/* {products.map((product) => ( */}

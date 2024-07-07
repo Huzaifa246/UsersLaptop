@@ -86,6 +86,8 @@ function SearchResultsComponent() {
                                     <li>Battery Capacity: {productData.batteryCapacity}</li>
                                     <li>Camera: {productData.camera}</li>
                                     <li>GPS: {productData.gps}</li>
+                                    <li>Products Available: {productData?.noOfPieces} </li>
+                                    <li>Sold Products: {productData?.sold} </li>
                                 </ul>
                             </div>
                         </Col>

@@ -190,8 +190,8 @@
 }
 
 .loader {
-  width: 48px;
-  height: 48px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   position: relative;
   animation: rotate 1s linear infinite;
@@ -320,6 +320,20 @@
 }
 .third div {
   background-color: #c10528;
+}
+.skeleton-line {
+  height: 0.6rem;
+  background-color: #e2e2e2;
+  animation: blink 1.5s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @keyframes text-animation {

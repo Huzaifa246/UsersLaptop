@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { Container, Row, Col, Dropdown, Form, Button, Badge, Pagination } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
-import Loader from '@/app/Components/Reuseable/Loader';
 import Image from 'next/image';
+import LinesSkeleton from '../Components/Reuseable/LinesSkeleton';
+import Head from 'next/head';
 
 const FilterProducts = () => {
     const router = useRouter();
@@ -17,7 +18,7 @@ const FilterProducts = () => {
     const [maxPrice, setMaxPrice] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
     const [selectedBrands, setSelectedBrands] = useState([]);
-    const[currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(20);
 
     useEffect(() => {
@@ -122,6 +123,13 @@ const FilterProducts = () => {
     const uniqueBrands = [...new Set(products.map(product => product.brand))];
     return (
         <>
+            <Head>
+                <title>Filter Products</title>
+                <meta name="description" content="Browse and filter a wide range of laptops to find the best deals and latest products available at Your Store Name." />
+                <meta name="keywords" content="laptops, buy laptops, filter laptops, laptop deals, latest laptops" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://enclair.tech/filtered-products" />
+            </Head>
             <Container className='mt-4'>
                 <h2>Filtered products</h2>
                 <div className='d-flex justify-content-between align-items-center mb-3'>
@@ -191,7 +199,7 @@ const FilterProducts = () => {
                     </div>
                 </div>
                 {isLoading ? (
-                    <Loader />
+                    <LinesSkeleton />
                 ) : (
                     <Row className='d-flex flex-wrap mob-wrap mt-5'>
                         {/* {filteredAndSortedProducts.map((product) => ( */}
@@ -205,7 +213,7 @@ const FilterProducts = () => {
                                     >
                                         10% OFF
                                     </Badge>
-                                    <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" width={100} height={500}/>
+                                    <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" width={100} height={500} />
                                     <div className="card-body">
                                         <h5 className="card-title gradient-text">{product.name}</h5>
                                         <p className="card-text">{product.ram} RAM</p>
