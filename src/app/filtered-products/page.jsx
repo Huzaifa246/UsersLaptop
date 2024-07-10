@@ -18,6 +18,10 @@ const FilterProducts = () => {
     const [maxPrice, setMaxPrice] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
     const [selectedBrands, setSelectedBrands] = useState([]);
+    const [selectedRam, setSelectedRam] = useState([]);
+    const [selectedScreenSize, setSelectedScreenSize] = useState([]);
+    const [selectedDisplayResolution, setSelectedDisplayResolution] = useState([]);
+    const [selectedSsd, setSelectedSsd] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(20);
 
@@ -41,7 +45,7 @@ const FilterProducts = () => {
 
     useEffect(() => {
         setCurrentPage(1); // Reset to first page when filters change
-    }, [sortOption, minPrice, maxPrice, selectedBrands]);
+    }, [sortOption, minPrice, maxPrice, selectedBrands, selectedRam, selectedScreenSize, selectedDisplayResolution, selectedSsd]);
 
     const handleProductClick = (product) => {
         const productDetailsLink = `/filtered-products/${product._id}`;
@@ -69,6 +73,7 @@ const FilterProducts = () => {
         setMinPrice('');
         setMaxPrice('');
     };
+
     const handleResetBrandClick = () => {
         setSelectedBrands([]);
     };
@@ -79,6 +84,42 @@ const FilterProducts = () => {
             selectedBrands.includes(brand)
                 ? selectedBrands.filter(b => b !== brand)
                 : [...selectedBrands, brand]
+        );
+    };
+
+    const handleRamChange = (e) => {
+        const ram = e.target.value;
+        setSelectedRam(
+            selectedRam.includes(ram)
+                ? selectedRam.filter(r => r !== ram)
+                : [...selectedRam, ram]
+        );
+    };
+
+    const handleScreenSizeChange = (e) => {
+        const screenSize = e.target.value;
+        setSelectedScreenSize(
+            selectedScreenSize.includes(screenSize)
+                ? selectedScreenSize.filter(s => s !== screenSize)
+                : [...selectedScreenSize, screenSize]
+        );
+    };
+
+    const handleDisplayResolutionChange = (e) => {
+        const displayResolution = e.target.value;
+        setSelectedDisplayResolution(
+            selectedDisplayResolution.includes(displayResolution)
+                ? selectedDisplayResolution.filter(d => d !== displayResolution)
+                : [...selectedDisplayResolution, displayResolution]
+        );
+    };
+
+    const handleSsdChange = (e) => {
+        const ssd = e.target.value;
+        setSelectedSsd(
+            selectedSsd.includes(ssd)
+                ? selectedSsd.filter(s => s !== ssd)
+                : [...selectedSsd, ssd]
         );
     };
 
@@ -109,9 +150,33 @@ const FilterProducts = () => {
         return products.filter(product => selectedBrands.includes(product.brand));
     };
 
+    const filterProductsByRam = (products, selectedRam) => {
+        if (selectedRam.length === 0) return products;
+        return products.filter(product => selectedRam.includes(product.ram));
+    };
+
+    const filterProductsByScreenSize = (products, selectedScreenSize) => {
+        if (selectedScreenSize.length === 0) return products;
+        return products.filter(product => selectedScreenSize.includes(product.screenSize));
+    };
+
+    const filterProductsByDisplayResolution = (products, selectedDisplayResolution) => {
+        if (selectedDisplayResolution.length === 0) return products;
+        return products.filter(product => selectedDisplayResolution.includes(product.displayResolution));
+    };
+
+    const filterProductsBySsd = (products, selectedSsd) => {
+        if (selectedSsd.length === 0) return products;
+        return products.filter(product => selectedSsd.includes(product.ssd));
+    };
+
     const sortedProducts = sortProducts(products, sortOption);
     const filteredProductsByPrice = filterProductsByPriceRange(sortedProducts, minPrice, maxPrice);
-    const filteredAndSortedProducts = filterProductsByBrand(filteredProductsByPrice, selectedBrands);
+    const filteredProductsByBrand = filterProductsByBrand(filteredProductsByPrice, selectedBrands);
+    const filteredProductsByRam = filterProductsByRam(filteredProductsByBrand, selectedRam);
+    const filteredProductsByScreenSize = filterProductsByScreenSize(filteredProductsByRam, selectedScreenSize);
+    const filteredProductsByDisplayResolution = filterProductsByDisplayResolution(filteredProductsByScreenSize, selectedDisplayResolution);
+    const filteredAndSortedProducts = filterProductsBySsd(filteredProductsByDisplayResolution, selectedSsd);
 
     // Pagination
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -121,6 +186,11 @@ const FilterProducts = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const uniqueBrands = [...new Set(products.map(product => product.brand))];
+    const uniqueRam = [...new Set(products.map(product => product.ram))];
+    const uniqueScreenSize = [...new Set(products.map(product => product.screenSize))];
+    const uniqueDisplayResolution = [...new Set(products.map(product => product.displayResolution))];
+    const uniqueSsd = [...new Set(products.map(product => product.ssd))];
+
     return (
         <>
             <Head>
@@ -131,10 +201,10 @@ const FilterProducts = () => {
                 <link rel="canonical" href="https://enclair.tech/filtered-products" />
             </Head>
             <Container className='mt-4'>
-                <h2>Filtered products</h2>
-                <div className='d-flex justify-content-between align-items-center mb-3'>
+                <h2 className="fw-bold">Filtered products</h2>
+                <div className='d-flex justify-content-around align-items-center mb-3 flex-wrap'>
                     <div className='d-flex flex-column'>
-                        <span className='py-1'>Filter by:</span>
+                        <span className='py-1 fw-bold'>Filter by Price:</span>
                         <Dropdown className="ml-3 select-dd">
                             <Dropdown.Toggle variant="light" id="priceRangeDropdown">
                                 Price Range
@@ -165,10 +235,10 @@ const FilterProducts = () => {
                         </Dropdown>
                     </div>
                     <div className='d-flex flex-column'>
-                        <label htmlFor="brandFilter" className="py-1">Filter by Brand:</label>
+                        <label htmlFor="brandFilter fw-bold" className="py-1 fw-bold">Filter by Brand:</label>
                         <Dropdown className="ml-3 select-dd">
-                            <Dropdown.Toggle variant="light" id="brandDropdown">
-                                Select Brands
+                            <Dropdown.Toggle variant="light" id="brandDropdown" className="w-100">
+                                Select
                             </Dropdown.Toggle>
                             <Dropdown.Menu show={showDropdown} onMouseLeave={() => setShowDropdown(false)}>
                                 <Form.Group controlId="brandFilter" className="px-3 py-3">
@@ -189,7 +259,103 @@ const FilterProducts = () => {
                         </Dropdown>
                     </div>
                     <div className='d-flex flex-column'>
-                        <label htmlFor="sortOptions" className="py-1">Sort by:</label>
+                        <label htmlFor="ramFilter" className="py-1 fw-bold">Filter by RAM:</label>
+                        <Dropdown className="ml-3 select-dd">
+                            <Dropdown.Toggle variant="light" id="ramDropdown" className="w-100">
+                                Select
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu show={showDropdown} onMouseLeave={() => setShowDropdown(false)}>
+                                <Form.Group controlId="ramFilter" className="px-3 py-3">
+                                    {uniqueRam.map(ram => (
+                                        <Form.Check
+                                            type="checkbox"
+                                            label={ram}
+                                            value={ram}
+                                            key={ram}
+                                            checked={selectedRam.includes(ram)}
+                                            onChange={handleRamChange}
+                                            className="m-2"
+                                        />
+                                    ))}
+                                    <Button variant="danger" className="mt-3" onClick={() => setSelectedRam([])}>Reset</Button>
+                                </Form.Group>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div className='d-flex flex-column'>
+                        <label htmlFor="screenSizeFilter" className="py-1 fw-bold">Filter by Screen Size:</label>
+                        <Dropdown className="ml-3 select-dd">
+                            <Dropdown.Toggle variant="light" id="screenSizeDropdown" className="w-100">
+                                Select
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu show={showDropdown} onMouseLeave={() => setShowDropdown(false)}>
+                                <Form.Group controlId="screenSizeFilter" className="px-3 py-3">
+                                    {uniqueScreenSize.map(screenSize => (
+                                        <Form.Check
+                                            type="checkbox"
+                                            label={screenSize}
+                                            value={screenSize}
+                                            key={screenSize}
+                                            checked={selectedScreenSize.includes(screenSize)}
+                                            onChange={handleScreenSizeChange}
+                                            className="m-2"
+                                        />
+                                    ))}
+                                    <Button variant="danger" className="mt-3" onClick={() => setSelectedScreenSize([])}>Reset</Button>
+                                </Form.Group>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div className='d-flex flex-column'>
+                        <label htmlFor="displayResolutionFilter" className="py-1 fw-bold">Filter by Resolution:</label>
+                        <Dropdown className="ml-3 select-dd">
+                            <Dropdown.Toggle variant="light" id="displayResolutionDropdown" className="w-100">
+                                Select
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu show={showDropdown} onMouseLeave={() => setShowDropdown(false)}>
+                                <Form.Group controlId="displayResolutionFilter" className="px-3 py-3">
+                                    {uniqueDisplayResolution.map(displayResolution => (
+                                        <Form.Check
+                                            type="checkbox"
+                                            label={displayResolution}
+                                            value={displayResolution}
+                                            key={displayResolution}
+                                            checked={selectedDisplayResolution.includes(displayResolution)}
+                                            onChange={handleDisplayResolutionChange}
+                                            className="m-2"
+                                        />
+                                    ))}
+                                    <Button variant="danger" className="mt-3" onClick={() => setSelectedDisplayResolution([])}>Reset</Button>
+                                </Form.Group>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div className='d-flex flex-column'>
+                        <label htmlFor="ssdFilter" className="py-1 fw-bold">Filter by SSD:</label>
+                        <Dropdown className="ml-3 select-dd">
+                            <Dropdown.Toggle variant="light" id="ssdDropdown" className="w-100">
+                                Select
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu show={showDropdown} onMouseLeave={() => setShowDropdown(false)}>
+                                <Form.Group controlId="ssdFilter" className="px-3 py-3">
+                                    {uniqueSsd.map(ssd => (
+                                        <Form.Check
+                                            type="checkbox"
+                                            label={ssd}
+                                            value={ssd}
+                                            key={ssd}
+                                            checked={selectedSsd.includes(ssd)}
+                                            onChange={handleSsdChange}
+                                            className="m-2"
+                                        />
+                                    ))}
+                                    <Button variant="danger" className="mt-3" onClick={() => setSelectedSsd([])}>Reset</Button>
+                                </Form.Group>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div className='d-flex flex-column'>
+                        <label htmlFor="sortOptions" className="py-1 fw-bold">Sort by:</label>
                         <Form.Select id="sortOptions" value={sortOption} onChange={handleSortChange} className='p-2 select-dd'>
                             <option value="">Select</option>
                             <option value="priceHighToLow">Price: High to Low</option>
@@ -202,7 +368,6 @@ const FilterProducts = () => {
                     <LinesSkeleton />
                 ) : (
                     <Row className='d-flex flex-wrap mob-wrap mt-5'>
-                        {/* {filteredAndSortedProducts.map((product) => ( */}
                         {currentItems.map((product) => (
                             <Col key={product._id} xs={12} sm={6} md={4} lg={4} className="mb-4 cursor-pointer">
                                 <div className="card h-100 shadow-sm" onClick={() => handleProductClick(product)}>

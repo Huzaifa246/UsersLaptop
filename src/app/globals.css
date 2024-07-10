@@ -253,11 +253,10 @@
   border-bottom: 1px solid white;
 }
 .select-dd {
-  background-color: #f8f9fa;
+  background-color: #f8f9fa !important;
   border: 1px solid #ced4da;
   border-radius: 6px;
 }
-
 .mob-wrap {
   flex-wrap: wrap;
 }
