@@ -8,6 +8,9 @@ import fetchAllLaptops from '@/app/services/getAllLaptops';
 import Image from 'next/image';
 import LinesSkeleton from '../Components/Reuseable/LinesSkeleton';
 import Head from 'next/head';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const FilterProducts = () => {
     const router = useRouter();
@@ -25,6 +28,72 @@ const FilterProducts = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(20);
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchBrand, setSearchBrand] = useState([]);
+    const [searchRam, setSearchRam] = useState('');
+    const [searchRamQuery, setSearchRamQuery] = useState('');
+
+    const [searchSSD, setSearchSSD] = useState('');
+    const [searchSSDQuery, setSearchSSDQuery] = useState('');
+
+    const [searchSSize, setSearchSSize] = useState('');
+    const [searchSSizeQuery, setSearchSSizeQuery] = useState('');
+
+    const handleInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+    const handleRamInputChange = (event) => {
+        setSearchRamQuery(event.target.value);
+    };
+    const handleSSDInputChange = (event) => {
+        setSearchSSDQuery(event.target.value);
+    };
+    const handleSSizeInputChange = (event) => {
+        setSearchSSizeQuery(event.target.value);
+    };
+
+    const handleGenericKeyDown = (event, handler) => {
+        if (event.key === 'Enter') {
+            handler();
+        }
+    };
+    const handleGenericIconClick = (handler) => {
+        handler();
+    }
+
+    const handleSearch = () => {
+        if (searchQuery.trim()) {
+            router.push(`/searched?brand=${encodeURIComponent(searchQuery)}`);
+        }
+    };
+    const handleRamSearch = () => {
+        if(searchRamQuery.trim()){
+        router.push(`/searched?ram=${encodeURIComponent(searchRamQuery)}`);
+        }
+    };
+    const handleBrandClick = (brand) => {
+        router.push(`/searched?brand=${encodeURIComponent(brand)}`);
+    };
+    const handleRamClick = (ram) => {
+        router.push(`/searched?ram=${encodeURIComponent(ram)}`);
+    };
+
+    const handleSSDSearch = () => {
+        if(searchSSDQuery.trim()){
+        router.push(`/searched?ssd=${encodeURIComponent(searchSSDQuery)}`);
+        }
+    };
+    const handleScreenSizeSearch = () => {
+        if(searchSSizeQuery.trim()){
+        router.push(`/searched?screenSize=${encodeURIComponent(searchSSizeQuery)}`);
+        }
+    };
+    const handleSSDClick = (ssd) => {
+        router.push(`/searched?ssd=${encodeURIComponent(ssd)}`);
+    };
+    const handleScreenSizeClick = (screenSize) => {
+        router.push(`/searched?screenSize=${encodeURIComponent(screenSize)}`);
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -32,6 +101,16 @@ const FilterProducts = () => {
                 const formattedData = data.map(product => ({
                     ...product,
                 }));
+                const filteredBrand = [...new Set(formattedData.map(product => product.brand))];
+                setSearchBrand(filteredBrand);
+                const ramOptions = [...new Set(formattedData.map(product => product.ram))];
+
+                const ssdOptions = [...new Set(formattedData.map(product => product.ssd))];
+                const screenSizeOptions = [...new Set(formattedData.map(product => product.screenSize))];
+                setSearchSSD(ssdOptions);
+                setSearchSSize(screenSizeOptions);
+                
+                setSearchRam(ramOptions);
                 setProducts(formattedData);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -368,30 +447,156 @@ const FilterProducts = () => {
                     <LinesSkeleton />
                 ) : (
                     <Row className='d-flex flex-wrap mob-wrap mt-5'>
-                        {currentItems.map((product) => (
-                            <Col key={product._id} xs={12} sm={6} md={4} lg={4} className="mb-4 cursor-pointer">
-                                <div className="card h-100 shadow-sm" onClick={() => handleProductClick(product)}>
-                                    <Badge
-                                        bg="danger"
-                                        className="position-absolute top-0 start-0 m-2"
-                                        style={{ zIndex: 1 }}
-                                    >
-                                        10% OFF
-                                    </Badge>
-                                    <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" width={100} height={500} />
-                                    <div className="card-body">
-                                        <h5 className="card-title gradient-text">{product.name}</h5>
-                                        <p className="card-text">{product.ram} RAM</p>
-                                        <p className="card-text">{product.processor}</p>
-                                        <p className="card-text">{product.year}</p>
-                                        <p className="card-text">Brand: {product.brand}</p>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <span className="text-primary fw-bold">Rs:{product.price}</span>
+                        <Col xs={12} md={9} lg={9} className="d-flex flex-wrap">
+                            {currentItems.map((product) => (
+                                <Col key={product._id} xs={12} sm={6} md={4} lg={4} className="mb-4 cursor-pointer px-1">
+                                    <div className="card shadow-sm" onClick={() => handleProductClick(product)}>
+                                        <Badge
+                                            bg="danger"
+                                            className="position-absolute top-0 start-0 m-2"
+                                            style={{ zIndex: 1 }}
+                                        >
+                                            10% OFF
+                                        </Badge>
+                                        <Image src={product.imageUrls[0] || "/images/card3.jpg"} alt={product.name} className="card-img-top img-fluid" width={100} height={500} />
+                                        <div className="card-body">
+                                            <h5 className="card-title gradient-text">{product.name}</h5>
+                                            <p className="card-text">{product.ram} RAM</p>
+                                            <p className="card-text">{product.processor}</p>
+                                            <p className="card-text">{product.year}</p>
+                                            <p className="card-text">Brand: {product.brand}</p>
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <span className="text-primary fw-bold">Rs:{product.price}</span>
+                                            </div>
                                         </div>
                                     </div>
+                                </Col>
+                            ))}
+                        </Col>
+                        <Col xs={12} md={3} lg={3}>
+                            <div>
+                                <div className='d-flex position-relative'>
+                                    <input
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={handleInputChange}
+                                        onKeyDown={(event) => handleGenericKeyDown(event, handleSearch)}
+                                        placeholder="Search Brand..."
+                                        className="field__input smooth-transition txt-black border-1 border-dark"
+                                    />
+                                    <FontAwesomeIcon
+                                        icon={faSearch}
+                                        className="cart-icon position-absolute"
+                                        style={{ right: "10px", top: "12px" }}
+                                        onClick={() => handleGenericIconClick(handleSearch)}
+                                    />
                                 </div>
-                            </Col>
-                        ))}
+                                <div className="brand-list mt-3">
+                                    <ul>
+                                        {searchBrand?.map(brand => (
+                                            <li
+                                                key={brand}
+                                                className="brand-item cursor-pointer"
+                                                onClick={() => handleBrandClick(brand)}
+                                            >
+                                                <span>{brand.toUpperCase()}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                {/* Ram */}
+                                <div className='d-flex position-relative'>
+                                    <input
+                                        type="text"
+                                        value={searchRamQuery}
+                                        onChange={handleRamInputChange}
+                                        onKeyDown={(event) => handleGenericKeyDown(event, handleRamSearch)}
+                                        placeholder="Search RAM..."
+                                        className="field__input smooth-transition txt-black border-1 border-dark"
+                                    />
+                                    <FontAwesomeIcon
+                                        icon={faSearch}
+                                        className="cart-icon position-absolute"
+                                        style={{ right: "10px", top: "12px" }}
+                                        onClick={() => handleGenericIconClick(handleRamSearch)}
+                                    />
+                                </div>
+                                <div className="brand-list mt-3">
+                                    <ul>
+                                        {searchRam?.map(ram => (
+                                            <li
+                                                key={ram}
+                                                className="brand-item cursor-pointer"
+                                                onClick={() => handleRamClick(ram)}
+                                            >
+                                                <span>{ram}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                {/* SSD */}
+                                <div className='d-flex position-relative'>
+                                    <input
+                                        type="text"
+                                        value={searchSSDQuery}
+                                        onChange={handleSSDInputChange}
+                                        onKeyDown={(event) => handleGenericKeyDown(event, handleSSDSearch)}
+                                        placeholder="Search SSD..."
+                                        className="field__input smooth-transition txt-black border-1 border-dark"
+                                    />
+                                    <FontAwesomeIcon
+                                        icon={faSearch}
+                                        className="cart-icon position-absolute"
+                                        style={{ right: "10px", top: "12px" }}
+                                        onClick={() => handleGenericIconClick(handleSSDSearch)}
+                                    />
+                                </div>
+                                <div className="brand-list mt-3">
+                                    <ul>
+                                        {searchSSD?.map(ssd => (
+                                            <li
+                                                key={ssd}
+                                                className="brand-item cursor-pointer"
+                                                onClick={() => handleSSDClick(ssd)}
+                                            >
+                                                <span>{ssd}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                {/* ScreenSize */}
+                                <div className='d-flex position-relative'>
+                                    <input
+                                        type="text"
+                                        value={searchSSizeQuery}
+                                        onChange={handleSSizeInputChange}
+                                        onKeyDown={(event) => handleGenericKeyDown(event, handleScreenSizeSearch)}
+                                        placeholder="Search Screen Size..."
+                                        className="field__input smooth-transition txt-black border-1 border-dark"
+                                    />
+                                    <FontAwesomeIcon
+                                        icon={faSearch}
+                                        className="cart-icon position-absolute"
+                                        style={{ right: "10px", top: "12px" }}
+                                        onClick={() => handleGenericIconClick(handleScreenSizeSearch)}
+                                    />
+                                </div>
+                                <div className="brand-list mt-3">
+                                    <ul>
+                                        {searchSSize?.map(screenSize => (
+                                            <li
+                                                key={screenSize}
+                                                className="brand-item cursor-pointer"
+                                                onClick={() => handleScreenSizeClick(screenSize)}
+                                            >
+                                                <span>{screenSize}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </Col>
+
                         <Pagination className='mt-4 justify-content-center'>
                             {Array(Math.ceil(filteredAndSortedProducts.length / itemsPerPage))
                                 .fill()

@@ -16,12 +16,15 @@ function HeaderComponent() {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [laptops, setLaptops] = useState([]);
+    const [brands, setBrands] = useState([]);
 
     useEffect(() => {
         const fetchLaptops = async () => {
             try {
                 const data = await fetchAllLaptops();
                 setLaptops(data);
+                const uniqueBrands = [...new Set(data.map(laptop => laptop.brand))];
+                setBrands(uniqueBrands);
             } catch (error) {
                 console.error('Error fetching laptops:', error);
             }
@@ -46,6 +49,10 @@ function HeaderComponent() {
         if (searchQuery.trim()) {
             router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
         }
+    };
+
+    const handleBrand = (brand) => {
+        router.push(`/searched?brand=${encodeURIComponent(brand)}`);
     };
 
     const handleKeyDown = (event) => {
@@ -74,12 +81,11 @@ function HeaderComponent() {
                                     Laptops
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="/">HP</Dropdown.Item>
-                                    <Dropdown.Item href="/">DELL</Dropdown.Item>
-                                    <Dropdown.Item href="/">LENOVO</Dropdown.Item>
-                                    <Dropdown.Item href="/">APPLE</Dropdown.Item>
-                                    <Dropdown.Item href="/">ASUS</Dropdown.Item>
-                                    <Dropdown.Item href="/">ACER</Dropdown.Item>
+                                {brands.map(brand => (
+                                        <Dropdown.Item key={brand} onClick={() => handleBrand(brand)}>
+                                            {brand}
+                                        </Dropdown.Item>
+                                    ))}
                                 </Dropdown.Menu>
                             </Dropdown>
                         </li>

@@ -36,6 +36,9 @@
 .txt-white {
   color: var(--white-color) !important;
 }
+.txt-black {
+  color: var(--black-color) !important;
+}
 .pd-5 {
   padding: var(--padding-5);
 }
@@ -370,6 +373,66 @@
   background-size: 100% 200%;
   background-position: 100% 0%;
   position: relative;
+}
+
+/* Brand list styling */
+.brand-list {
+  position: relative;
+}
+
+.brand-list h2 {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.brand-list ul {
+  position: relative;
+  padding-left: 10px !important;
+}
+
+.brand-list ul li {
+  position: relative;
+  left: 0;
+  color: var(--black-color);
+  list-style: none;
+  margin: 3px 0;
+  border-left: 2px solid #f50057 !important;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.brand-list ul li:hover {
+  left: 10px !important;
+}
+
+.brand-list ul li span {
+  position: relative !important;
+  padding: 8px;
+  padding-left: 12px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+
+.brand-list ul li:hover span {
+  color: var(--white-color) !important;
+}
+
+.brand-list ul li:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f50057 !important;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: 0.5s;
+}
+
+.brand-list ul li:hover:before {
+  transform: scaleX(1);
 }
 
 

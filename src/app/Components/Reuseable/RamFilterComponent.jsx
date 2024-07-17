@@ -5,11 +5,10 @@ import { useSearchParams } from 'next/navigation';
 import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPage from './ErrorPage';
 import fetchAllLaptops from '@/app/services/getAllLaptops';
-import LinesSkeleton from './LinesSkeleton';
 
-function SearchResultsComponent() {
+function RamFilterComponent() {
     const searchParams = useSearchParams();
-    const query = searchParams.get('query') || '';
+    const query = searchParams.get('ram') || '';
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -18,8 +17,7 @@ function SearchResultsComponent() {
             try {
                 const laptops = await fetchAllLaptops();
                 const filteredLaptops = laptops.filter(laptop =>
-                    laptop?.name?.toLowerCase().includes(query.toLowerCase()) ||
-                    laptop?.brand?.toLowerCase().includes(query.toLowerCase())
+                    laptop?.ram?.toLowerCase().includes(query.toLowerCase())
                 );
                 setResults(filteredLaptops);
             } catch (error) {
@@ -35,7 +33,7 @@ function SearchResultsComponent() {
     }, [query]);
 
     if (isLoading) {
-        return <div> <LinesSkeleton/> </div>;
+        return <div></div>;
     }
 
     if (results.length === 0) {
@@ -44,7 +42,7 @@ function SearchResultsComponent() {
 
     return (
         <div>
-            <h2 className='px-4 py-2'>Searched Results: {query}</h2>
+            <h2 className='px-4 py-2'>Searched Results for RAM: {query}</h2>
             {results.map((productData) => (
                 <Container key={productData.id}>
                     <Row className="my-4">
@@ -99,4 +97,4 @@ function SearchResultsComponent() {
     );
 }
 
-export default SearchResultsComponent;
+export default RamFilterComponent;
