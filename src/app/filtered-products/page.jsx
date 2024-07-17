@@ -474,7 +474,7 @@ const FilterProducts = () => {
                             ))}
                         </Col>
                         <Col xs={12} md={3} lg={3}>
-                            <div>
+                            <div className='shadow-md'>
                                 <div className='d-flex position-relative'>
                                     <input
                                         type="text"
