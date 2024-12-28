@@ -29,7 +29,7 @@ const FaqsPage = () => {
     ];
     return (
         <>
-            <div className='faq-main'>
+            <div className='faq-main txt-white'>
                 <h1>
                     Why Us ?
                 </h1>
@@ -41,7 +41,7 @@ const FaqsPage = () => {
             </div>
             <Image src="/images/faqImg.png" width={100} height={400} alt="" className='w-100 h-100' />
 
-            <div className='my-2'>
+            <div className='my-2 txt-white'>
                 <h1 className='text-center'>
                     FAQS
                 </h1>

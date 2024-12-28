@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  background: #000 !important;
+}
 
 :root {
   --white-color: #ffffff;
@@ -114,6 +117,7 @@
   letter-spacing: 0.13rem;
   line-height: calc(1 + 0.2 / 1);
   margin-bottom: 0 !important;
+  color: var(--white-color) !important;
 }
 .w-fit-content {
   width: fit-content;
@@ -183,7 +187,7 @@
   height: 45px;
   letter-spacing: 0.25px;
   transition: box-shadow var(--duration-short) ease;
-  background-color: var(--black-color);
+  background: radial-gradient(circle, hsla(0, 100%, 50%, 1) 0%, hsla(0, 73%, 34%, 1) 100%) !important;
   color: var(--white-color);
 }
 
@@ -315,13 +319,13 @@
 }
 
 .first div {
-  background-color: #20a7d8;
+  background-color: #e50914 !important;
 }
 .second div {
-  background-color: #CD921E;
+  background-color: #221f1f !important;
 }
 .third div {
-  background-color: #c10528;
+  background-color: #e50914 !important;
 }
 .skeleton-line {
   height: 0.6rem;
@@ -352,7 +356,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(229, 9, 20, 1) 60%, rgb(255 255 255) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -364,7 +368,7 @@
 }
 
 .gradient-text:hover {
-  background: linear-gradient(90deg, rgba(9,9,121,1) 35%, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(229, 9, 20, 1) 35%, rgb(255 255 255) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

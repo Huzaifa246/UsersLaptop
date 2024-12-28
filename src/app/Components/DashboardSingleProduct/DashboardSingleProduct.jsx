@@ -51,15 +51,16 @@ const DashboardSingleProduct = () => {
                     </section>
                 </main>
                 <Col xs={12} md={8} className="text-center">
-                    <img
+                    <Image
                         src={product.imageUrls[0] || "/images/card3.jpg"}
                         alt={product.name}
                         className="img-fluid h-500 mob-h-100"
+                        width={500} height={500}
                     />
                 </Col>
 
                 {/* Right section with product details */}
-                <Col xs={12} md={4}>
+                <Col xs={12} md={4} className="txt-white">
                     <p className='p-my-store'><sub>MY STORE</sub></p>
                     <h1 className='h1-product-style gradient-text'>{product.name}</h1>
                     <h4>{product.price}</h4>

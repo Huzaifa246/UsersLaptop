@@ -39,7 +39,7 @@ const FeaturedCards = ({ imageUrl1, imageUrl2, productName, productLink, price, 
                         </Badge>
                     </div>
                     <Card.Body>
-                        <Card.Title className="gradient-text">
+                        <Card.Title>
                             {productName}
                         </Card.Title>
                         <Card.Text className="text-muted">{price}</Card.Text>

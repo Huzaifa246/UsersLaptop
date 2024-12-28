@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import fetchAllLaptops from '@/app/services/getAllLaptops';
 import Link from 'next/link';
 import './header.css';
 import { useRouter } from 'next/navigation';
@@ -15,23 +14,9 @@ function HeaderComponent() {
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [laptops, setLaptops] = useState([]);
-    const [brands, setBrands] = useState([]);
 
-    useEffect(() => {
-        const fetchLaptops = async () => {
-            try {
-                const data = await fetchAllLaptops();
-                setLaptops(data);
-                const uniqueBrands = [...new Set(data.map(laptop => laptop.brand))];
-                setBrands(uniqueBrands);
-            } catch (error) {
-                console.error('Error fetching laptops:', error);
-            }
-        };
-
-        fetchLaptops();
-    }, []);
+    // Hardcoded list of laptop brands
+    const brands = ['dell', 'lenovo', 'hp', 'microsoft', 'apple'];
 
     const toggleNavbar = () => {
         setIsNavbarOpen(!isNavbarOpen);
@@ -52,7 +37,11 @@ function HeaderComponent() {
     };
 
     const handleBrand = (brand) => {
-        router.push(`/searched?brand=${encodeURIComponent(brand)}`);
+        try {
+            router.push(`/searched?brand=${encodeURIComponent(brand)}`);
+        } catch (error) {
+            console.error("Navigation error:", error);
+        }
     };
 
     const handleKeyDown = (event) => {
@@ -62,7 +51,7 @@ function HeaderComponent() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark web-header">
+        <nav className="navbar navbar-expand-lg navbar-dark web-header">
             <div className="container-fluid">
                 <Link href="/" className="navbar-brand txt-white">
                     <Image src="/logo.jpg" alt="Logo" width={70} height={50} />
@@ -77,11 +66,11 @@ function HeaderComponent() {
                         </li>
                         <li className="nav-item">
                             <Dropdown>
-                                <Dropdown.Toggle className='dd-style ps-1'>
+                                <Dropdown.Toggle className="dd-style ps-1">
                                     Laptops
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                {brands.map(brand => (
+                                    {brands.map((brand) => (
                                         <Dropdown.Item key={brand} onClick={() => handleBrand(brand)}>
                                             {brand}
                                         </Dropdown.Item>
